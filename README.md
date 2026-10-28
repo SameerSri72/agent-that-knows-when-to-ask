@@ -6,9 +6,9 @@ This project studies that question in a driving simulator. It is an early-stage,
 
 ## Motivation
 
-I build an LLM-based agent that designs Piping and Instrumentation Diagrams (P&IDs) for chemical plants. A key question for that agent is when to decide on its own and when to ask the engineer. Engineering design gives slow and expensive feedback, so the question is hard to study there directly.
+I build an LLM-based agent that designs Piping and Instrumentation Diagrams (P&IDs) for chemical plants. Today it improves by storing engineers' feedback, without retraining. The next step is an agent that improves its decisions from its own experience and feedback over time, which points to reinforcement learning (RL).
 
-A driving simulator gives fast, measurable feedback on every decision (did the car crash or not?). This project uses it to develop and test a "defer when unsure" method, which I then plan to bring back to the P&ID agent.
+Engineering design gives slow and expensive feedback, so it is a hard place to learn RL methods. A driving simulator gives fast, measurable feedback on every decision (did the car crash or not?). This project uses it as a testbed to develop RL and world-model methods, including the question of when an agent should act on its own and when it should ask a human, to carry these methods back to the P&ID agent.
 
 ## Approach
 
