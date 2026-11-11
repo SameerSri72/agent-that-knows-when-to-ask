@@ -7,6 +7,7 @@ import time
 import gymnasium as gym
 import highway_env  # noqa: F401
 from stable_baselines3 import DQN
+import os    
 
 env = gym.make("highway-fast-v0")   # a faster version of the highway environment
 
@@ -32,5 +33,6 @@ start = time.time()
 model.learn(total_timesteps=20_000, progress_bar=True)
 print(f"\nTraining took {(time.time() - start) / 60:.1f} minutes")
 
-model.save("dqn_highway")
-print("Saved trained agent to dqn_highway.zip")
+os.makedirs("models", exist_ok=True)
+model.save("models/dqn_highway")
+print("Saved trained agent to models/dqn_highway.zip")

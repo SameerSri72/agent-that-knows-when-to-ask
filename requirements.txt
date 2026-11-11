@@ -1,5 +1,7 @@
-torch
 gymnasium
 highway-env
 stable-baselines3[extra]
 imageio
+pandas
+matplotlib
+scikit-learn

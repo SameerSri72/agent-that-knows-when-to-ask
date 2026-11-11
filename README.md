@@ -34,7 +34,7 @@ Trained for 20,000 steps on `highway-fast-v0` (about 17 minutes on a CPU), then 
 The trained agent learns to overtake slower cars, but it still crashes in about 4 of 10 episodes. These remaining risky moments are exactly what the deferring method is meant to catch.
 
 <p align="center">
-  <img src="trained.gif" alt="Trained DQN agent driving on the highway" width="600">
+  <img src="assets/trained.gif" alt="Trained DQN agent driving on the highway" width="600">
 </p>
 
 *Note: 30 test episodes give a rough estimate only. Later experiments will use 100 test episodes and several random seeds.*
@@ -53,9 +53,9 @@ The trained agent learns to overtake slower cars, but it still crashes in about 
 ```bash
 pip install -r requirements.txt
 
-python check_setup.py   # check the install and watch a random agent drive
-python train_dqn.py     # train the DQN baseline (saves dqn_highway.zip)
-python evaluate.py      # compare random vs. trained agent, save GIFs
+python scripts/check_setup.py   # check the install and watch a random agent drive
+python baselines/train_dqn.py     # train the DQN baseline (saves dqn_highway.zip)
+python eval/evaluate.py      # compare random vs. trained agent, save GIFs
 ```
 
 PyTorch is best installed first using the command for your system from [pytorch.org](https://pytorch.org/get-started/locally/).

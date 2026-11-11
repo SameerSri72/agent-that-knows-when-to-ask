@@ -33,14 +33,14 @@ def run(policy, n=N_EPISODES, gif_path=None):
     return crashes / n, float(np.mean(returns)), float(np.std(returns))
 
 
-model = DQN.load("dqn_highway")
+model = DQN.load("models/dqn_highway")
 
 random_policy = lambda obs, env: env.action_space.sample()
 trained_policy = lambda obs, env: int(model.predict(obs, deterministic=True)[0])
 
 print(f"Evaluating on {N_EPISODES} episodes each...\n")
-r_crash, r_mean, r_std = run(random_policy, gif_path="random.gif")
-t_crash, t_mean, t_std = run(trained_policy, gif_path="trained.gif")
+r_crash, r_mean, r_std = run(random_policy, gif_path="assets/random.gif")
+t_crash, t_mean, t_std = run(trained_policy, gif_path="assets/trained.gif")
 
 print(f"{'Agent':<10}{'Crash rate':>12}{'Avg return':>14}")
 print(f"{'Random':<10}{r_crash:>12.0%}{r_mean:>10.2f} ± {r_std:.2f}")
