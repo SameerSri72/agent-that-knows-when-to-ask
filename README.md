@@ -113,7 +113,6 @@ Training logs can be viewed with `tensorboard --logdir logs/`.
 | `scripts/speed_test.py` | Compares simulation speed of `highway-fast-v0` and `highway-v0` |
 | `results/` | Evaluation results (CSV) |
 | `assets/` | GIFs and figures used in this README |
-| `notes/lab_notebook.md` | Running log of experiments and decisions |
 
 Trained models (`models/`) and training logs (`logs/`) are not stored in the repository.
 
