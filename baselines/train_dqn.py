@@ -1,38 +1,49 @@
 """
-Step 3: Train a DQN agent on highway-fast-v0 (settings from the highway-env quickstart).
-Run:  python train_dqn.py
-Saves the trained agent as dqn_highway.zip and training logs in logs/.
-"""
-import time
-import gymnasium as gym
-import highway_env  # noqa: F401
-from stable_baselines3 import DQN
-import os    
+Train the DQN baseline on the "normal" condition.
 
-env = gym.make("highway-fast-v0")   # a faster version of the highway environment
+Run from the repo's top folder:
+    python -m baselines.train_dqn --seed 0
+Saves models/dqn_seed0.zip and TensorBoard logs in logs/dqn/.
+"""
+import argparse
+import os
+import time
+
+from stable_baselines3 import DQN
+
+from envs.conditions import make_env
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--seed", type=int, default=0, help="training seed (use 0, 1, 2, ...)")
+parser.add_argument("--steps", type=int, default=20_000, help="total training steps")
+args = parser.parse_args()
+
+env = make_env("normal")
 
 model = DQN(
-    "MlpPolicy",                    # a plain fully-connected network (input = 25 numbers)
+    "MlpPolicy",
     env,
     policy_kwargs=dict(net_arch=[256, 256]),
     learning_rate=5e-4,
-    buffer_size=15_000,             # how many past steps are remembered
-    learning_starts=200,            # random driving first, then start learning
+    buffer_size=15_000,
+    learning_starts=200,
     batch_size=32,
-    gamma=0.8,                      # how much the agent cares about future reward
+    gamma=0.8,
     train_freq=1,
     gradient_steps=1,
     target_update_interval=50,
-    exploration_fraction=0.7,       # explores randomly a lot at first, less later
+    exploration_fraction=0.7,
+    seed=args.seed,
     verbose=1,
-    tensorboard_log="logs/",
-    device="auto",                  # uses GPU if available (CPU is also fine here)
+    tensorboard_log="logs/dqn",
+    device="cpu",   # a tiny network: the CPU is as fast as the GPU here
 )
 
 start = time.time()
-model.learn(total_timesteps=20_000, progress_bar=True)
+model.learn(total_timesteps=args.steps, tb_log_name=f"seed{args.seed}", progress_bar=True)
 print(f"\nTraining took {(time.time() - start) / 60:.1f} minutes")
 
 os.makedirs("models", exist_ok=True)
-model.save("models/dqn_highway")
-print("Saved trained agent to models/dqn_highway.zip")
+path = f"models/dqn_seed{args.seed}"
+model.save(path)
+print(f"Saved {path}.zip")
